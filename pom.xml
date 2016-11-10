@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <prerequisites>
+    <maven>3.0</maven>
+  </prerequisites>
+
+  <groupId>de.maggu2810.tmp.org.eclipse.smarthome.packaging.sample</groupId>
+  <artifactId>karaf</artifactId>
+  <version>0.9.0-SNAPSHOT</version>
+  <packaging>karaf-assembly</packaging>
+
+  <name>Eclipse SmartHome :: Packaging Sample :: Karaf</name>
+  <description>A packaging example for Eclipse SmartHome using Karaf</description>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <esh.version>${project.version}</esh.version>
+    <karaf.version>4.0.7</karaf.version>
+  </properties>
+
+  <licenses>
+    <license>
+      <name>Eclipse Public License</name>
+      <url>http://www.eclipse.org/legal/epl-v10.html</url>
+    </license>
+  </licenses>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.karaf.features</groupId>
+      <artifactId>framework</artifactId>
+      <version>${karaf.version}</version>
+      <type>kar</type>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.karaf.features</groupId>
+      <artifactId>standard</artifactId>
+      <version>${karaf.version}</version>
+      <classifier>features</classifier>
+      <type>xml</type>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.karaf.features</groupId>
+      <artifactId>framework</artifactId>
+      <classifier>features</classifier>
+      <type>xml</type>
+      <version>${karaf.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.smarthome</groupId>
+      <artifactId>karaf</artifactId>
+      <version>${esh.version}</version>
+      <classifier>features</classifier>
+      <type>xml</type>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.eclipse.smarthome</groupId>
+      <artifactId>karaf-tp</artifactId>
+      <version>${esh.version}</version>
+      <classifier>features</classifier>
+      <type>xml</type>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.karaf.tooling</groupId>
+          <artifactId>karaf-maven-plugin</artifactId>
+          <version>${karaf.version}</version>
+          <extensions>true</extensions>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>2.6</version>
+          <executions>
+            <execution>
+              <id>process-resources</id>
+              <goals>
+                <goal>resources</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <resources>
+      <resource>
+        <directory>${project.basedir}/src/main/resources</directory>
+        <filtering>false</filtering>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>${project.basedir}/src/main/filtered-resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/*</include>
+        </includes>
+      </resource>
+    </resources>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.karaf.tooling</groupId>
+        <artifactId>karaf-maven-plugin</artifactId>
+        <configuration>
+          <installedFeatures>
+            <feature>wrapper</feature>
+          </installedFeatures>
+          <startupFeatures>
+            <feature>eventadmin</feature>
+          </startupFeatures>
+          <bootFeatures>
+            <feature>jaas</feature>
+            <feature>shell</feature>
+            <feature>shell-compat</feature>
+            <feature>ssh</feature>
+            <feature>management</feature>
+            <feature>bundle</feature>
+            <feature>config</feature>
+            <feature>deployer</feature>
+            <feature>diagnostic</feature>
+            <feature>instance</feature>
+            <feature>kar</feature>
+            <feature>log</feature>
+            <feature>package</feature>
+            <feature>service</feature>
+            <feature>system</feature>
+            <feature>feature</feature>
+            <feature>webconsole</feature>
+
+            <feature>esh-base</feature>
+            <feature>esh-io-console-karaf</feature>
+            <feature>esh-io-rest-sitemap</feature>
+            <feature>esh-model-item-runtime</feature>
+            <feature>esh-model-persistence-runtime</feature>
+            <feature>esh-model-rule-runtime</feature>
+            <feature>esh-model-script-runtime</feature>
+            <feature>esh-model-sitemap-runtime</feature>
+            <feature>esh-model-thing-runtime</feature>
+            <feature>esh-storage-mapdb</feature>
+            <feature>esh-ui-iconset-classic</feature>
+            <feature>esh-ui-paper</feature>
+
+            <feature>esh-automation-api</feature>
+            <feature>esh-automation-commands</feature>
+            <feature>esh-automation-core</feature>
+            <feature>esh-automation-module-core</feature>
+            <feature>esh-automation-module-script</feature>
+            <feature>esh-automation-module-script-defaultscope</feature>
+            <feature>esh-automation-module-timer</feature>
+            <feature>esh-automation-parser-gson</feature>
+            <feature>esh-automation-providers</feature>
+            <feature>esh-automation-rest</feature>
+          </bootFeatures>
+          <archiveZip>false</archiveZip>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <repositories>
+    <!-- Maven Central -->
+    <!-- Use this first, so we prefer Central all the time -->
+    <repository>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>central</id>
+      <name>Maven Repository Switchboard</name>
+      <url>https://repo1.maven.org/maven2</url>
+    </repository>
+
+    <repository>
+      <id>jCenter</id>
+      <url>https://jcenter.bintray.com/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+
+    <!-- maggu2810's private repository -->
+    <repository>
+      <id>bintray-maggu2810-maven</id>
+      <url>https://dl.bintray.com/maggu2810/maven/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+
+    <!-- jUPnP -->
+    <repository>
+      <id>jupnp-bintray</id>
+      <url>https://dl.bintray.com/jupnp/mvn/</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+
+    <!-- Eclipse Release Repository -->
+    <repository>
+      <id>eclipse-releases</id>
+      <name>Eclipse Release Repository</name>
+      <layout>default</layout>
+      <url>https://repo.eclipse.org/content/repositories/releases/</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+
+    <!-- Eclipse Snapshot Repository -->
+    <repository>
+      <id>eclipse-snapshots</id>
+      <name>Eclipse Snapshot Repository</name>
+      <layout>default</layout>
+      <url>https://repo.eclipse.org/content/repositories/snapshots/</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+</project>

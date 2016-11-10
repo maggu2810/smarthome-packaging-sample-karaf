@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<property-edits xmlns="http://karaf.apache.org/tools/property-edits/1.0.0">
+  <edits>
+    <edit>
+      <file>system.properties</file>
+      <operation>put</operation>
+      <key>smarthome.configdir</key>
+      <value>${karaf.home}/esh/conf</value>
+    </edit>
+    <edit>
+      <file>system.properties</file>
+      <operation>put</operation>
+      <key>smarthome.userdata</key>
+      <value>${karaf.home}/esh/userdata</value>
+    </edit>
+  </edits>
+</property-edits>
