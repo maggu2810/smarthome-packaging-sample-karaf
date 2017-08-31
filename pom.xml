@@ -19,7 +19,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <esh.version>${project.version}</esh.version>
-    <karaf.version>4.0.7</karaf.version>
+    <karaf.version>4.1.2</karaf.version>
   </properties>
 
   <licenses>
