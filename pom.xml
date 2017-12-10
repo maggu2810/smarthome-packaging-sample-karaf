@@ -20,6 +20,7 @@
 
     <esh.version>${project.version}</esh.version>
     <karaf.version>4.2.0.M1</karaf.version>
+    <jetty.version>9.3.22.v20171030</jetty.version>
   </properties>
 
   <licenses>
