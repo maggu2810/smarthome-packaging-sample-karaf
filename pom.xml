@@ -148,7 +148,7 @@
             <feature>service</feature>
             <feature>system</feature>
             <feature>feature</feature>
-            <feature>webconsole</feature>
+            <!--<feature>webconsole</feature>-->
 
             <feature>esh-base</feature>
 <!--
