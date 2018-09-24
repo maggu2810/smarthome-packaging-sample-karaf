@@ -151,6 +151,7 @@
             <feature>webconsole</feature>
 
             <feature>esh-base</feature>
+<!--
             <feature>esh-io-console-karaf</feature>
             <feature>esh-io-rest-sitemap</feature>
             <feature>esh-model-item-runtime</feature>
@@ -173,6 +174,7 @@
             <feature>esh-automation-parser-gson</feature>
             <feature>esh-automation-providers</feature>
             <feature>esh-automation-rest</feature>
+-->
           </bootFeatures>
           <archiveZip>false</archiveZip>
         </configuration>
