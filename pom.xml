@@ -2,26 +2,26 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>de.maggu2810.tmp.org.eclipse.smarthome.packaging.sample</groupId>
+  <groupId>de.maggu2810.tmp.org.openhab.packaging.sample</groupId>
   <artifactId>karaf</artifactId>
-  <version>0.10.0-SNAPSHOT</version>
+  <version>2.5.0-SNAPSHOT</version>
   <packaging>karaf-assembly</packaging>
 
-  <name>Eclipse SmartHome :: Packaging Sample :: Karaf</name>
-  <description>A packaging example for Eclipse SmartHome using Karaf</description>
+  <name>openHAB :: Packaging Sample :: Karaf</name>
+  <description>A packaging example for openHAB using Karaf</description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <esh.version>${project.version}</esh.version>
-    <karaf.version>4.2.1</karaf.version>
+    <oh.version>${project.version}</oh.version>
+    <karaf.version>4.2.4</karaf.version>
   </properties>
 
   <licenses>
     <license>
-      <name>Eclipse Public License</name>
-      <url>http://www.eclipse.org/legal/epl-v10.html</url>
+      <name>Eclipse Public License 2.0</name>
+      <url>https://www.eclipse.org/legal/epl-2.0/</url>
     </license>
   </licenses>
 
@@ -48,25 +48,33 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.smarthome</groupId>
-      <artifactId>esh-core</artifactId>
-      <version>${esh.version}</version>
+      <groupId>org.openhab.core.features.karaf</groupId>
+      <artifactId>org.openhab.core.features.karaf.openhab-core</artifactId>
+      <version>${oh.version}</version>
       <classifier>features</classifier>
       <type>xml</type>
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.smarthome</groupId>
-      <artifactId>esh-ext</artifactId>
-      <version>${esh.version}</version>
+      <groupId>org.openhab.core.features.karaf</groupId>
+      <artifactId>org.openhab.core.features.karaf.openhab-tp</artifactId>
+      <version>${oh.version}</version>
       <classifier>features</classifier>
       <type>xml</type>
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.smarthome</groupId>
-      <artifactId>esh-tp</artifactId>
-      <version>${esh.version}</version>
+      <groupId>org.openhab.addons.features.karaf</groupId>
+      <artifactId>org.openhab.addons.features.karaf.openhab-addons</artifactId>
+      <version>${oh.version}</version>
+      <classifier>features</classifier>
+      <type>xml</type>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.openhab.ui</groupId>
+      <artifactId>openhab-webui</artifactId>
+      <version>${oh.version}</version>
       <classifier>features</classifier>
       <type>xml</type>
       <scope>runtime</scope>
@@ -81,6 +89,12 @@
           <artifactId>karaf-maven-plugin</artifactId>
           <version>${karaf.version}</version>
           <extensions>true</extensions>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
         </plugin>
 
         <plugin>
@@ -150,31 +164,41 @@
             <feature>feature</feature>
             <!--<feature>webconsole</feature>-->
 
-            <feature>esh-base</feature>
-<!--
-            <feature>esh-io-console-karaf</feature>
-            <feature>esh-io-rest-sitemap</feature>
-            <feature>esh-model-item-runtime</feature>
-            <feature>esh-model-persistence-runtime</feature>
-            <feature>esh-model-rule-runtime</feature>
-            <feature>esh-model-script-runtime</feature>
-            <feature>esh-model-sitemap-runtime</feature>
-            <feature>esh-model-thing-runtime</feature>
-            <feature>esh-storage-mapdb</feature>
-            <feature>esh-ui-iconset-classic</feature>
-            <feature>esh-ui-paper</feature>
+            <!-- BEG: openHAB Core -->
+            <feature>openhab-core-base</feature>
 
-            <feature>esh-automation-api</feature>
-            <feature>esh-automation-commands</feature>
-            <feature>esh-automation-core</feature>
-            <feature>esh-automation-module-core</feature>
-            <feature>esh-automation-module-script</feature>
-            <feature>esh-automation-module-script-defaultscope</feature>
-            <feature>esh-automation-module-timer</feature>
-            <feature>esh-automation-parser-gson</feature>
-            <feature>esh-automation-providers</feature>
-            <feature>esh-automation-rest</feature>
--->
+            <feature>openhab-core-io-console-karaf</feature>
+            <feature>openhab-core-io-rest-sitemap</feature>
+            <feature>openhab-core-model-item</feature>
+            <feature>openhab-core-model-persistence</feature>
+            <feature>openhab-core-model-rule</feature>
+            <feature>openhab-core-model-script</feature>
+            <feature>openhab-core-model-sitemap</feature>
+            <feature>openhab-core-model-thing</feature>
+
+            <feature>openhab-core-storage-mapdb</feature>
+
+            <feature>openhab-core-automation</feature>
+            <feature>openhab-core-automation-module-script</feature>
+            <feature>openhab-core-automation-module-script-rulesupport</feature>
+            <feature>openhab-core-automation-module-media</feature>
+            <feature>openhab-core-automation-rest</feature>
+
+            <feature>openhab-core-model-lsp</feature>
+            <!-- END: openHAB Core -->
+
+            <!-- BEG: openHAB Add-ons -->
+            <feature>openhab-binding-astro</feature>
+            <feature>openhab-binding-ntp</feature>
+            <feature>openhab-binding-sonos</feature>
+            <!-- END: openHAB Add-ons -->
+
+            <!-- BEG: openHAB Web UI -->
+            <feature>openhab-iconset-classic</feature>
+            <feature>openhab-ui-paper</feature>
+            <feature>openhab-ui-classic</feature>
+            <feature>openhab-ui-basic</feature>
+            <!-- END: openHAB Web UI -->
           </bootFeatures>
           <archiveZip>false</archiveZip>
         </configuration>
@@ -217,39 +241,42 @@
       </snapshots>
     </repository>
 
-    <!-- jUPnP -->
     <repository>
-      <id>jupnp-bintray</id>
-      <url>https://dl.bintray.com/jupnp/mvn/</url>
+      <id>openhab-artifactory-release</id>
+      <name>JFrog Artifactory Repository</name>
+      <url>https://openhab.jfrog.io/openhab/libs-release</url>
       <releases>
         <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
       </releases>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
     </repository>
-
-    <!-- Eclipse Release Repository -->
-    <repository>
-      <id>eclipse-releases</id>
-      <name>Eclipse Release Repository</name>
-      <layout>default</layout>
-      <url>https://repo.eclipse.org/content/repositories/releases/</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-
-    <!-- Eclipse Snapshot Repository -->
-    <repository>
-      <id>eclipse-snapshots</id>
-      <name>Eclipse Snapshot Repository</name>
-      <layout>default</layout>
-      <url>https://repo.eclipse.org/content/repositories/snapshots/</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
   </repositories>
 
+  <profiles>
+    <profile>
+      <id>openhab-snapshot-repository</id>
+      <activation>
+        <property>
+          <name>!noOhSnapRepo</name>
+        </property>
+      </activation>
+      <repositories>
+        <repository>
+          <id>openhab-artifactory-snapshot</id>
+          <name>JFrog Artifactory Repository</name>
+          <url>https://openhab.jfrog.io/openhab/libs-snapshot</url>
+          <releases>
+            <enabled>false</enabled>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>always</updatePolicy>
+          </snapshots>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
 </project>
