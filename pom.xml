@@ -15,7 +15,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <oh.version>${project.version}</oh.version>
-    <karaf.version>4.2.4</karaf.version>
+    <karaf.version>4.2.7</karaf.version>
   </properties>
 
   <licenses>
@@ -31,6 +31,13 @@
       <artifactId>framework</artifactId>
       <version>${karaf.version}</version>
       <type>kar</type>
+      <exclusions>
+        <exclusion>
+          <!-- This should have been an optional dependency and will be fixed in Karaf 4.2.8 (KARAF-6462). -->
+          <groupId>org.knopflerfish.kf6</groupId>
+          <artifactId>log-API</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.apache.karaf.features</groupId>
